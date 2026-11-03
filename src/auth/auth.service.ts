@@ -8,6 +8,7 @@ import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, IsNull } from 'typeorm';
+import { randomUUID } from 'crypto';
 
 import * as bcrypt from 'bcrypt';
 
@@ -65,6 +66,7 @@ export class AuthService {
       sub: string;
       email: string;
       role: string;
+      jti: string;
     };
 
     try {
@@ -75,45 +77,53 @@ export class AuthService {
       throw new UnauthorizedException('Invalid refresh token');
     }
 
-    const storedTokens = await this.refreshTokenRepository.find({
-      where: {
-        userId: payload.sub,
-        revokedAt: IsNull(),
-      },
-    });
-
-    let matchedToken: RefreshToken | undefined;
-
-    for (const storedToken of storedTokens) {
-      const isMatch = await bcrypt.compare(
-        refreshToken,
-        storedToken.tokenHash,
-      );
-
-      if (isMatch) {
-        matchedToken = storedToken;
-        break;
-      }
-    }
-
-    if (!matchedToken || matchedToken.expiresAt <= new Date()) {
+    if (!payload.jti) {
       throw new UnauthorizedException('Invalid refresh token');
     }
 
-    const user = await this.usersService.findOne(payload.sub);
+    return this.refreshTokenRepository.manager.transaction(
+      async (manager) => {
+        const repository = manager.getRepository(RefreshToken);
 
-    if (!user.isActive) {
-      throw new UnauthorizedException('User account is inactive');
-    }
+        const storedToken = await repository.findOne({
+          where: {
+            tokenId: payload.jti,
+            userId: payload.sub,
+            revokedAt: IsNull(),
+          },
+          lock: {
+            mode: 'pessimistic_write',
+          },
+        });
 
-    matchedToken.revokedAt = new Date();
+        if (
+          !storedToken ||
+          storedToken.expiresAt <= new Date()
+        ) {
+          throw new UnauthorizedException('Invalid refresh token');
+        }
 
-    await this.refreshTokenRepository.save(matchedToken);
+        const user = await this.usersService.findOne(payload.sub);
 
-    return this.generateTokens(user);
+        if (!user.isActive) {
+          throw new UnauthorizedException('User account is inactive');
+        }
+
+        storedToken.revokedAt = new Date();
+
+        await repository.save(storedToken);
+
+        return this.generateTokens(user, repository);
+      },
+    );
   }
 
-  private async generateTokens(user: User) {
+  private async generateTokens(
+    user: User,
+    repository: Repository<RefreshToken> = this.refreshTokenRepository,
+  ) {
+    const tokenId = randomUUID();
+
     const payload = {
       sub: user.id,
       email: user.email,
@@ -122,21 +132,28 @@ export class AuthService {
 
     const accessToken = await this.jwtService.signAsync(payload);
 
-    const refreshToken = await this.jwtService.signAsync(payload, {
-      secret: this.configService.get<string>('JWT_REFRESH_SECRET'),
-      expiresIn: '7d',
-    });
+    const refreshToken = await this.jwtService.signAsync(
+      {
+        ...payload,
+        jti: tokenId,
+      },
+      {
+        secret: this.configService.get<string>('JWT_REFRESH_SECRET'),
+        expiresIn: '7d',
+      },
+    );
 
     const tokenHash = await bcrypt.hash(refreshToken, 12);
 
-    const refreshTokenEntity = this.refreshTokenRepository.create({
+    const refreshTokenEntity = repository.create({
       tokenHash,
+      tokenId,
       userId: user.id,
       expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
       revokedAt: null,
     });
 
-    await this.refreshTokenRepository.save(refreshTokenEntity);
+    await repository.save(refreshTokenEntity);
 
     return {
       accessToken,
@@ -151,5 +168,56 @@ export class AuthService {
         role: user.role,
       },
     };
+  }
+
+  async logout(refreshToken: string) {
+    let payload: {
+      sub: string;
+      jti: string;
+    };
+
+    try {
+      payload = await this.jwtService.verifyAsync(refreshToken, {
+        secret: this.configService.get<string>('JWT_REFRESH_SECRET'),
+      });
+    } catch {
+      throw new UnauthorizedException('Invalid refresh token');
+    }
+
+    if (!payload.jti) {
+      throw new UnauthorizedException('Invalid refresh token');
+    }
+
+    return this.refreshTokenRepository.manager.transaction(
+      async (manager) => {
+        const repository = manager.getRepository(RefreshToken);
+
+        const storedToken = await repository.findOne({
+          where: {
+            tokenId: payload.jti,
+            userId: payload.sub,
+            revokedAt: IsNull(),
+          },
+          lock: {
+            mode: 'pessimistic_write',
+          },
+        });
+
+        if (
+          !storedToken ||
+          storedToken.expiresAt <= new Date()
+        ) {
+          throw new UnauthorizedException('Invalid refresh token');
+        }
+
+        storedToken.revokedAt = new Date();
+
+        await repository.save(storedToken);
+
+        return {
+          message: 'Logged out successfully',
+        };
+      },
+    );
   }
 }

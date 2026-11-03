@@ -19,6 +19,10 @@ export class RefreshToken {
   @Column({ name: 'token_hash', unique: true })
   tokenHash: string;
 
+  @Index()
+  @Column({ name: 'token_id', unique: true })
+  tokenId: string;
+
   @ManyToOne(() => User, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'user_id' })
   user: User;
