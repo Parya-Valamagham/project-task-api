@@ -11,6 +11,7 @@ import * as bcrypt from 'bcrypt';
 import { User } from './entities/user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { UserRole } from './enums/user-role.enum';
 
 @Injectable()
 export class UsersService {
@@ -77,6 +78,42 @@ export class UsersService {
     const user = await this.findOne(id);
 
     Object.assign(user, updateUserDto);
+
+    return this.usersRepository.save(user);
+  }
+
+  async updateRole(
+    id: string,
+    role: UserRole,
+    currentUserId: string,
+  ): Promise<User> {
+    if (id === currentUserId) {
+      throw new ConflictException(
+        'You cannot change your own role',
+      );
+    }
+
+    const user = await this.findOne(id);
+
+    user.role = role;
+
+    return this.usersRepository.save(user);
+  }
+
+  async updateStatus(
+    id: string,
+    isActive: boolean,
+    currentUserId: string,
+  ): Promise<User> {
+    if (id === currentUserId && !isActive) {
+      throw new ConflictException(
+        'You cannot deactivate your own account',
+      );
+    }
+
+    const user = await this.findOne(id);
+
+    user.isActive = isActive;
 
     return this.usersRepository.save(user);
   }
