@@ -26,7 +26,7 @@ export class AuthService {
 
     @InjectRepository(RefreshToken)
     private readonly refreshTokenRepository: Repository<RefreshToken>,
-  ) {}
+  ) { }
 
   async register(createUserDto: CreateUserDto) {
     const existingUser = await this.usersService.findByEmail(
@@ -219,5 +219,31 @@ export class AuthService {
         };
       },
     );
+  }
+
+  async changePassword(
+    userId: string,
+    currentPassword: string,
+    newPassword: string,
+  ) {
+    await this.usersService.changePassword(
+      userId,
+      currentPassword,
+      newPassword,
+    );
+
+    await this.refreshTokenRepository.update(
+      {
+        userId,
+        revokedAt: IsNull(),
+      },
+      {
+        revokedAt: new Date(),
+      },
+    );
+
+    return {
+      message: 'Password changed successfully. Please log in again.',
+    };
   }
 }
