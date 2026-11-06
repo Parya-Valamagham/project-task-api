@@ -221,6 +221,19 @@ export class AuthService {
     );
   }
 
+  async getMe(userId: string) {
+    const user = await this.usersService.findOne(userId);
+
+    return {
+      id: user.id,
+      email: user.email,
+      fullName: user.fullName,
+      role: user.role,
+      isActive: user.isActive,
+      createdAt: user.createdAt,
+    };
+  }
+
   async changePassword(
     userId: string,
     currentPassword: string,

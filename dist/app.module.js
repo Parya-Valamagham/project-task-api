@@ -14,12 +14,20 @@ const users_module_1 = require("./users/users.module");
 const auth_module_1 = require("./auth/auth.module");
 const refresh_tokens_module_1 = require("./refresh-tokens/refresh-tokens.module");
 const projects_module_1 = require("./projects/projects.module");
+const tasks_module_1 = require("./tasks/tasks.module");
+const throttler_1 = require("@nestjs/throttler");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
         imports: [
+            throttler_1.ThrottlerModule.forRoot([
+                {
+                    ttl: 60000,
+                    limit: 5,
+                },
+            ]),
             config_1.ConfigModule.forRoot({
                 isGlobal: true,
             }),
@@ -41,6 +49,7 @@ exports.AppModule = AppModule = __decorate([
             auth_module_1.AuthModule,
             refresh_tokens_module_1.RefreshTokensModule,
             projects_module_1.ProjectsModule,
+            tasks_module_1.TasksModule,
         ],
     })
 ], AppModule);

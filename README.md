@@ -1,114 +1,163 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# Project & Task Management API
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+یک RESTful API برای مدیریت پروژه‌ها، اعضای پروژه و وظایف (Tasks) با استفاده از NestJS، PostgreSQL و TypeORM.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## قابلیت‌ها
 
-## Description
+- ثبت‌نام و ورود کاربران
+- احراز هویت با JWT Access Token و Refresh Token
+- چرخش Refresh Token (Token Rotation)
+- خروج از حساب و ابطال توکن‌ها
+- تغییر رمز عبور
+- مدیریت کاربران و نقش‌ها
+- مدیریت پروژه‌ها
+- افزودن و حذف اعضای پروژه
+- ایجاد و مدیریت وظایف
+- تخصیص وظایف به اعضای پروژه
+- مدیریت وضعیت وظایف
+- کنترل دسترسی مبتنی بر نقش (RBAC)
+- اعتبارسنجی ورودی‌ها با DTO
+- رمزنگاری رمز عبور با bcrypt
+- محدودیت تعداد درخواست‌های ورود (Rate Limiting)
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## تکنولوژی‌ها
 
-## Project setup
+- Node.js
+- NestJS
+- TypeScript
+- PostgreSQL
+- TypeORM
+- JWT
+- bcrypt
+- Jest
+- Postman
 
-```bash
-$ npm install
-```
+## نقش‌های کاربری
 
-## Compile and run the project
+| نقش | دسترسی |
+|---|---|
+| Admin | مدیریت کاربران، پروژه‌ها و وظایف |
+| Manager | مدیریت پروژه‌های متعلق به خود و وظایف آن‌ها |
+| Member | مشاهده پروژه‌های عضویت‌شده و تغییر وضعیت وظایف تخصیص‌یافته به خود |
 
-```bash
-# development
-$ npm run start
+## پیش‌نیازها
 
-# watch mode
-$ npm run start:dev
+- Node.js
+- npm
+- PostgreSQL
 
-# production mode
-$ npm run start:prod
-```
+## نصب و راه‌اندازی
 
-## Run tests
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
-
-## Deployment
-
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+ابتدا پروژه را دریافت کنید:
 
 ```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
+git clone <REPOSITORY_URL>
+cd project-task-api
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+وابستگی‌ها را نصب کنید:
 
-## Observability
+```bash
+npm install
+```
 
-In production applications, observability is essential for understanding how your system behaves, detecting issues early, and maintaining reliable performance.
+فایل `.env.example` را به `.env` کپی کرده و مقادیر موردنیاز را تنظیم کنید.
 
-[NestJS Observe](https://observe.nestjs.com) automatically instruments your NestJS application, giving you deep visibility into your system with minimal setup:
+## متغیرهای محیطی
 
-- **Distributed tracing:** Follow requests across services and understand how they flow through your system.
-- **Waterfall analysis:** Visualize request execution and identify slow operations, bottlenecks, and unexpected delays.
-- **Performance analysis:** Analyze application performance in real time and quickly pinpoint areas that need optimization.
-- **Metrics:** Track key application and infrastructure metrics to understand system health and performance trends.
-- **Logging:** Centralize and correlate logs with traces and other telemetry to make debugging easier.
-- **Error tracking:** Detect errors quickly and investigate their root causes with the surrounding context.
-- **SLA monitoring:** Track service-level objectives and identify when your application is approaching or exceeding defined thresholds.
-- **Alarms and alerts:** Set up alerts for critical errors, performance degradation, SLA violations, and other anomalies so your team can react quickly.
+```env
+DB_HOST=localhost
+DB_PORT=5432
+DB_USERNAME=postgres
+DB_PASSWORD=your_database_password
+DB_DATABASE=project_task_db
 
-## Resources
+JWT_ACCESS_SECRET=your_access_secret
+JWT_REFRESH_SECRET=your_refresh_secret
 
-Check out a few resources that may come in handy when working with NestJS:
+JWT_ACCESS_EXPIRES_IN=15m
+JWT_REFRESH_EXPIRES_IN=7d
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Auto-instrument your application with [NestJS Observer](https://observer.nestjs.com). Distributed tracing, metrics, and logging made easy. Error tracking and performance monitoring for your NestJS applications.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+ADMIN_EMAIL=admin@example.com
+ADMIN_PASSWORD=your_admin_password
+ADMIN_FULL_NAME=System Admin
+```
 
-## Support
+**نکته امنیتی:** فایل `.env` نباید در Git Commit شود. برای تنظیم محیط از `.env.example` استفاده کنید.
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+## ایجاد اولین مدیر سیستم
 
-## Stay in touch
+برای ایجاد اولین حساب Admin از Seed استفاده می‌شود و نیازی به ثبت‌نام عمومی مدیر نیست.
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+پس از تنظیم متغیرهای `ADMIN_EMAIL`، `ADMIN_PASSWORD` و `ADMIN_FULL_NAME` در فایل `.env`، دستور زیر را اجرا کنید:
 
-## License
+```bash
+npm run seed:admin
+```
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+## اجرای پروژه
+
+حالت توسعه:
+
+```bash
+npm run start:dev
+```
+
+ساخت نسخه نهایی:
+
+```bash
+npm run build
+```
+
+اجرای نسخه Build شده:
+
+```bash
+npm run start:prod
+```
+
+## API Endpoints
+
+تمام درخواست‌ها از طریق مسیر پایه زیر ارسال می‌شوند:
+
+```text
+http://localhost:3000
+```
+
+### Authentication
+
+| Method | Endpoint | Description |
+|---|---|---|
+| POST | `/auth/register` | ثبت‌نام |
+| POST | `/auth/login` | ورود |
+| POST | `/auth/refresh` | دریافت Access Token جدید |
+| POST | `/auth/logout` | خروج و ابطال Refresh Token |
+| GET | `/auth/me` | دریافت اطلاعات کاربر فعلی |
+| PUT | `/auth/me/password` | تغییر رمز عبور |
+
+### Users
+
+| Method | Endpoint | Description |
+|---|---|---|
+| POST | `/users` | ایجاد کاربر توسط Admin |
+| GET | `/users` | دریافت فهرست کاربران |
+| GET | `/users/:id` | دریافت اطلاعات کاربر |
+| PATCH | `/users/:id/role` | تغییر نقش کاربر |
+| PATCH | `/users/:id/status` | تغییر وضعیت فعال بودن |
+| PATCH | `/users/:id` | ویرایش اطلاعات کاربر |
+| DELETE | `/users/:id` | حذف کاربر |
+
+### Projects
+
+| Method | Endpoint | Description |
+|---|---|---|
+| POST | `/projects` | ایجاد پروژه |
+| GET | `/projects` | دریافت فهرست پروژه‌ها |
+| GET | `/projects/:id` | دریافت جزئیات پروژه |
+| PATCH | `/projects/:id` | ویرایش پروژه |
+| DELETE | `/projects/:id` | حذف پروژه |
+| POST | `/projects/:id/members` | افزودن عضو به پروژه |
+| DELETE | `/projects/:id/members/:userId` | حذف عضو از پروژه |
+
+### Tasks
+
+| Method | Endpoint

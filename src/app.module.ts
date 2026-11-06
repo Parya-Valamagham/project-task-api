@@ -6,9 +6,18 @@ import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { RefreshTokensModule } from './refresh-tokens/refresh-tokens.module';
 import { ProjectsModule } from './projects/projects.module';
+import { TasksModule } from './tasks/tasks.module';
+import { ThrottlerModule } from '@nestjs/throttler';
 
 @Module({
   imports: [
+    ThrottlerModule.forRoot([
+      {
+        ttl: 60000,
+        limit: 5,
+      },
+    ]),
+
     ConfigModule.forRoot({
       isGlobal: true,
     }),
@@ -32,6 +41,7 @@ import { ProjectsModule } from './projects/projects.module';
     AuthModule,
     RefreshTokensModule,
     ProjectsModule,
+    TasksModule,
   ],
 })
-export class AppModule {}
+export class AppModule { }

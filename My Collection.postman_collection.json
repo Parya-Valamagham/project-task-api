@@ -1,0 +1,709 @@
+{
+  "info": {
+    "_postman_id": "6a57b93e-618a-4355-9fad-9d914a322df9",
+    "name": "My Collection",
+    "description": "### Welcome to Postman! This is your first collection. \n\nCollections are your starting point for building and testing APIs. You can use this one to:\n\n• Group related requests\n• Test your API in real-world scenarios\n• Document and share your requests\n\nUpdate the name and overview whenever you’re ready to make it yours.\n\n[Learn more about Postman Collections.](https://learning.postman.com/docs/collections/collections-overview/)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "58375937",
+    "_collection_link": "https://go.postman.co/collection/58375937-6a57b93e-618a-4355-9fad-9d914a322df9?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Company",
+      "item": [
+        {
+          "name": "auth",
+          "item": [
+            {
+              "name": "Create",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"full_name\": \"علی محمدی\",\r\n  \"phone\": \"09123456788\",\r\n  \"email\": \"ali20@gmail.com\",\r\n  \"message\": \"سلام، برای همکاری و دریافت اطلاعات بیشتر پیام گذاشتم.\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:3000/contact-messages",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "3000",
+                  "path": [
+                    "contact-messages"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "login",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"email\": \"test@example.com\",\r\n  \"password\": \"Test12345\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:3000/auth/login",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "3000",
+                  "path": [
+                    "auth",
+                    "login"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "logout",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:3000/contact-messages/1742240d-0330-4fe4-b4f1-1ab5459ea8ce",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "3000",
+                  "path": [
+                    "contact-messages",
+                    "1742240d-0330-4fe4-b4f1-1ab5459ea8ce"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "refresh",
+              "request": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"is_read\": true\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:3000/contact-messages/1742240d-0330-4fe4-b4f1-1ab5459ea8ce",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "3000",
+                  "path": [
+                    "contact-messages",
+                    "1742240d-0330-4fe4-b4f1-1ab5459ea8ce"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "change-password",
+              "request": {
+                "method": "GET",
+                "header": []
+              },
+              "response": []
+            },
+            {
+              "name": "New Request",
+              "request": {
+                "method": "GET",
+                "header": []
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "projects",
+          "item": [
+            {
+              "name": "Create",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "job_position_id",
+                      "value": "97bb9af7-c80a-4972-8f52-a7b5eb7f2674",
+                      "type": "text",
+                      "uuid": "7407142c-4f03-4e20-bf77-88c46f30b22f"
+                    },
+                    {
+                      "key": "full_name",
+                      "value": "علی محمدی ",
+                      "type": "text",
+                      "uuid": "bc33f575-0ffd-4d50-8086-c97afc7debd5"
+                    },
+                    {
+                      "key": "email",
+                      "value": "ali@gmail.com",
+                      "type": "text",
+                      "uuid": "17d51d18-b97f-4344-8b57-29026d3f75a9"
+                    },
+                    {
+                      "key": "phone",
+                      "value": "09123456789",
+                      "type": "text",
+                      "uuid": "25e479ab-6bb9-4242-a2da-b5ca47daa9ec"
+                    },
+                    {
+                      "key": "resume_file",
+                      "type": "file",
+                      "uuid": "3b48a67a-48ad-442b-b3b2-ed19a8bf9a85",
+                      "src": "/J:/آزمایش شماره پنج.pdf"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "http://localhost:3000/resumes",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "3000",
+                  "path": [
+                    "resumes"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Find All",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:3000/resumes",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "3000",
+                  "path": [
+                    "resumes"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Find One",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:3000/resumes/002b2215-e5be-4376-85ce-9a9f9c5782fe",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "3000",
+                  "path": [
+                    "resumes",
+                    "002b2215-e5be-4376-85ce-9a9f9c5782fe"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Update",
+              "request": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"is_read\": true\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:3000/resumes/002b2215-e5be-4376-85ce-9a9f9c5782fe",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "3000",
+                  "path": [
+                    "resumes",
+                    "002b2215-e5be-4376-85ce-9a9f9c5782fe"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Delete",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "job_position_id",
+                      "value": "97bb9af7-c80a-4972-8f52-a7b5eb7f2674",
+                      "type": "text",
+                      "uuid": "7407142c-4f03-4e20-bf77-88c46f30b22f"
+                    },
+                    {
+                      "key": "full_name",
+                      "value": "علی محمدی ",
+                      "type": "text",
+                      "uuid": "bc33f575-0ffd-4d50-8086-c97afc7debd5"
+                    },
+                    {
+                      "key": "email",
+                      "value": "ali@gmail.com",
+                      "type": "text",
+                      "uuid": "17d51d18-b97f-4344-8b57-29026d3f75a9"
+                    },
+                    {
+                      "key": "phone",
+                      "value": "09123456789",
+                      "type": "text",
+                      "uuid": "25e479ab-6bb9-4242-a2da-b5ca47daa9ec"
+                    },
+                    {
+                      "key": "resume_file",
+                      "type": "file",
+                      "uuid": "3b48a67a-48ad-442b-b3b2-ed19a8bf9a85",
+                      "src": "/J:/آزمایش شماره پنج.pdf"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "http://localhost:3000/resumes/a016c88c-fc86-4000-bd42-340b701ac8b5",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "3000",
+                  "path": [
+                    "resumes",
+                    "a016c88c-fc86-4000-bd42-340b701ac8b5"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Add Memeber",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{json_web_token_0td3}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"userId\": \"d9f5df3a-038c-47ec-a3ce-27f99ca62e53\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:3000/projects/e0d7d2b1-8aad-4685-b19d-e52f05a0c6e5/members",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "3000",
+                  "path": [
+                    "projects",
+                    "e0d7d2b1-8aad-4685-b19d-e52f05a0c6e5",
+                    "members"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Delete Member",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{json_web_token_0td3}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:3000/projects/e0d7d2b1-8aad-4685-b19d-e52f05a0c6e5/members/d9f5df3a-038c-47ec-a3ce-27f99ca62e53",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "3000",
+                  "path": [
+                    "projects",
+                    "e0d7d2b1-8aad-4685-b19d-e52f05a0c6e5",
+                    "members",
+                    "d9f5df3a-038c-47ec-a3ce-27f99ca62e53"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "users",
+          "item": [
+            {
+              "name": "Create",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"title\": \"مهندس الکترونیک\",\r\n  \"unit\": \"واحد تحقیق و توسعه\",\r\n  \"people_number\": 2,\r\n  \"related_job\": \"مهندسی برق\",\r\n  \"slug\": \"electronic-engineer\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:3000/job-positions",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "3000",
+                  "path": [
+                    "job-positions"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Find All",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:3000/job-positions",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "3000",
+                  "path": [
+                    "job-positions"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Find One",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"title\": \"مهندس الکترونیک\",\r\n  \"unit\": \"واحد تحقیق و توسعه\",\r\n  \"people_number\": 2,\r\n  \"related_job\": \"مهندسی برق\",\r\n  \"slug\": \"electronic-engineer\"\r\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:3000/job-positions/cc769185-275c-47f1-8e3e-6114248a4202",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "3000",
+                  "path": [
+                    "job-positions",
+                    "cc769185-275c-47f1-8e3e-6114248a4202"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Update",
+              "request": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"title\": \"مهندس برق و الکترونیک\",\r\n  \"unit\": \"واحد تحقیق و توسعه\",\r\n  \"people_number\": 3,\r\n  \"related_job\": \"مهندسی برق\",\r\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:3000/job-positions/cc769185-275c-47f1-8e3e-6114248a4202",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "3000",
+                  "path": [
+                    "job-positions",
+                    "cc769185-275c-47f1-8e3e-6114248a4202"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Delete",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:3000/job-positions/cc769185-275c-47f1-8e3e-6114248a4202",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "3000",
+                  "path": [
+                    "job-positions",
+                    "cc769185-275c-47f1-8e3e-6114248a4202"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "updateRoleByAdmin",
+              "request": {
+                "method": "GET",
+                "header": []
+              },
+              "response": []
+            },
+            {
+              "name": "updateActiveByAdmin",
+              "request": {
+                "method": "GET",
+                "header": []
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "tasks",
+          "item": [
+            {
+              "name": "Create",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{json_web_token_0da1}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"title\": \"First Task\",\r\n  \"description\": \"Testing task creation\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:3000/projects/e0d7d2b1-8aad-4685-b19d-e52f05a0c6e5/tasks",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "3000",
+                  "path": [
+                    "projects",
+                    "e0d7d2b1-8aad-4685-b19d-e52f05a0c6e5",
+                    "tasks"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Find All",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{json_web_token_0da1}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:3000/projects/e0d7d2b1-8aad-4685-b19d-e52f05a0c6e5/tasks",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "3000",
+                  "path": [
+                    "projects",
+                    "e0d7d2b1-8aad-4685-b19d-e52f05a0c6e5",
+                    "tasks"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Find Oe",
+              "request": {
+                "method": "GET",
+                "header": []
+              },
+              "response": []
+            },
+            {
+              "name": "Update",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{json_web_token_0da1}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:3000/tasks/65b27e7f-8a38-445f-a045-c8f6fa5e3c3e",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "3000",
+                  "path": [
+                    "tasks",
+                    "65b27e7f-8a38-445f-a045-c8f6fa5e3c3e"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Update Status",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{json_web_token_0da1}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"status\": \"in_progress\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/tasks/65b27e7f-8a38-445f-a045-c8f6fa5e3c3e/status",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "tasks",
+                "65b27e7f-8a38-445f-a045-c8f6fa5e3c3e",
+                "status"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Change Admin Password",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "json_web_token_0td3",
+      "secret": true
+    },
+    {
+      "key": "json_web_token_0da1",
+      "secret": true
+    }
+  ]
+}
